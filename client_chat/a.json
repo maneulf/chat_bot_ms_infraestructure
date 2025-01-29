@@ -1,0 +1,46 @@
+{
+    "request_id": "11a6f653-e77f-43ad-8186-ed9a26167bc1",
+    "client": {
+        "bot_id": "1bc1b455-a7a2-4c3d-90e6-44d23b50890d",
+        "user_id": "some-user-id_1",
+        "channel_id": "854a75cd-25b3-4ca5-88ce-f7a716d2c7d4"
+    },
+    "conversation_end": false,
+    "messages": [
+        {
+            "payload": {
+                "content_type": "question",
+                "content": {
+                    "title": "What's your lastname?",
+                    "buttons": [
+                        {
+                            "content": {
+                                "title": "I don't want to share my lastname",
+                                "payload": "I don't want to share my lastname",
+                                "accepts": [
+                                    "I don't want to share my lastname",
+                                    "I don't want to share my lastname"
+                                ],
+                                "accept": [
+                                    "No",
+                                    "No",
+                                    "no",
+                                    "NA",
+                                    "N/A",
+                                    "na",
+                                    "n/a"
+                                ]
+                            },
+                            "content_type": "button"
+                        }
+                    ]
+                }
+            },
+            "interaction_order": 1,
+            "conversation_id": "3047ce0b-fbae-4599-b1ab-ef418ff946c7",
+            "direction": "SEND"
+        }
+    ],
+    "received_at": "2025-01-20T18:21:37.781Z",
+    "is_authorized": true
+}

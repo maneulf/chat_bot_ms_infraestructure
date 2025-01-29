@@ -1,0 +1,66 @@
+version: "3.8" # Usa la versión más reciente compatible.
+
+networks:
+  common_network: {}
+
+services:
+  api_gateway_ms:
+    image: api_gateway_ms
+    ports:
+      - "8080:8080"
+    networks:
+      - common_network
+    environment:
+      ADDRESS_HTTP: ":8080"
+      READ_TIMEOUT: "5"
+      WRITE_TIMEOUT: "5"
+      WEB_ADAPTER_MS_PATH: "http://web_adapter_ms:8080/api/v1/message"
+
+  web_adapter_ms:
+    image: web_adapter_ms
+    ports:
+      - "8081:8080"
+    networks:
+      - common_network
+    environment:
+      ADDRESS_HTTP: ":8080"
+      READ_TIMEOUT: "5"
+      WRITE_TIMEOUT: "5"
+      CSML_PATH: "https://clients.csml.dev/v1/api/chat"
+      CSML_X_API_KEY: "N06R0lbezHCIw7ORrJ9CrS0S2VTdT0es"
+      DATA_BASE_MESSAGES_SAVER_MS: "http://data_base_messages_saver_ms:8080/api/v1/savecsmlmessage"
+
+
+  data_base_messages_saver_ms:
+    image: data_base_messages_saver
+    ports:
+      - "8082:8080"
+    networks:
+      - common_network
+    environment:
+      ADDRESS_HTTP: ":8080"
+      READ_TIMEOUT: "5"
+      WRITE_TIMEOUT: "5"
+      DATA_BASE_URL: "maneul:4w3s0m3@tcp(db:3306)/chat_bot_infraestructure?charset=utf8mb4&parseTime=True&loc=Local"
+      DB_HOST: "db"
+      DB_PORT: "3306"
+      DB_USER: "maneul"
+      DB_PASSWORD: "4w3s0m3"
+      DB_NAME: "chat_bot_infraestructure"
+    depends_on:
+      - db
+    volumes:
+      - ./wait-for-it.sh:/usr/local/bin/wait-for-it.sh
+    command: ["/usr/local/bin/wait-for-it.sh", "db:3306", "--timeout=30", "--", "/build/web_adapter_ms"]
+
+  db:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    networks:
+      - common_network
+    environment:
+      MYSQL_ROOT_PASSWORD: "4w3s0m3"
+      MYSQL_DATABASE: "chat_bot_infraestructure"
+      MYSQL_USER: "maneul"
+      MYSQL_PASSWORD: "4w3s0m3"

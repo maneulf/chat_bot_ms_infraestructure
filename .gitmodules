@@ -1,0 +1,6 @@
+[submodule "base_ms"]
+	path = base_ms
+	url = https://github.com/maneulf/base_ms
+[submodule "messages_models"]
+	path = messages_models
+	url = https://github.com/maneulf/messages_models

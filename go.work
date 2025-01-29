@@ -1,0 +1,10 @@
+go 1.20
+
+use (
+	./api_gateway
+	./base_ms
+	./client_chat
+	./data_base_messages_saver
+	./messages_models
+	./web_adapter_ms
+)
