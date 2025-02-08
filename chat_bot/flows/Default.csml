@@ -1,0 +1,74 @@
+start:
+    say Typing(2000)
+    say "Hi 🤓, I just need a few informations in order to add you to my mailing list."
+    goto firstname
+
+firstname:
+    say Typing(2000)
+    say "What's your firstname?"
+    hold
+
+    remember nlFirstname = event 
+    goto lastname
+
+lastname:
+    //say Typing(2000)
+    do btnLastname = Button(
+        title = "I don't want to share my lastname",
+        accept = ["No", "No", "no", "NA", "N/A", "na", "n/a"]
+    )
+
+    say Question(title="What's your lastname?", buttons=[btnLastname])
+    hold
+
+    if (event.match(btnLastname)) remember nlLastname = "N/A"
+    else remember nlLastname = event
+    goto identificationType
+
+identificationType:
+    do btnPrimaryId = Button(
+        title = "Primary identification",
+        //accept = ["No", "No", "no", "NA", "N/A", "na", "n/a"]
+    )
+
+    do btnDriverId = Button(
+        title = "Driver identification",
+        //accept = ["No", "No", "no", "NA", "N/A", "na", "n/a"]
+    )
+
+    say Question(title="Select your identification type", buttons=[btnPrimaryId, btnDriverId])
+    hold
+
+    goto identification
+
+
+identification:
+    say "Enter your identification number"
+    hold
+    goto birdDate
+
+birdDate:
+    say "Enter your bird date DD/MM/AAAA"
+    hold
+    goto email
+
+email:
+    say Typing(2000)
+    say "What's your email address?"
+    hold
+
+    // does the user's input look like an email address?
+    if (event.is_email()) {
+        remember nlEmail = event
+        goto thanks
+    }
+
+    // otherwise the input is probably not a valid email address
+    // we need to ask them again
+    say "That's not a valid email address 😱"
+    goto email
+
+thanks:
+    say "thanks fot use this chat bot..."
+
+goto end
